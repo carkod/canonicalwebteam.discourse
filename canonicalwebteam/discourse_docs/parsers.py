@@ -28,6 +28,8 @@ class DocParser:
         self.url_prefix = url_prefix
         self.index_topic_id = index_topic_id
 
+
+    def parse(self):
         index_topic = self.api.get_topic(index_topic_id)
         raw_index_soup = BeautifulSoup(
             index_topic["post_stream"]["posts"][0]["cooked"],

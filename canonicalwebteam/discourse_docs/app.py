@@ -24,8 +24,7 @@ class DiscourseDocs(object):
 
     def __init__(
         self,
-        api,
-        index_topic_id,
+        parser,
         category_id,
         document_template="docs/document.html",
         url_prefix="/docs",
@@ -42,7 +41,7 @@ class DiscourseDocs(object):
             """
 
             path = "/" + path
-            parser = DocParser(api, index_topic_id, self.url_prefix)
+            parser = parser.parse()
 
             if path == "/":
                 document = parser.index_document
@@ -54,7 +53,7 @@ class DiscourseDocs(object):
                 except PathNotFoundError:
                     return flask.abort(404)
 
-                if topic_id == index_topic_id:
+                if topic_id == parser.index_topic_id:
                     return flask.redirect(self.url_prefix)
 
                 try:
