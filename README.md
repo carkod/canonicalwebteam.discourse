@@ -15,14 +15,19 @@ app = Flask("myapp")
 
 DISCOURSE_BASE_URL = "https://forum.example.com/"
 DOCS_INDEX_TOPIC = 321
-DOCS_CATEGORY_ID = 21
 DOCS_URL_PREFIX = '/docs'
 DOCS_TEMPLATE_PATH = "docs/document.html"
 
+discourse_api = DiscourseAPI(base_url=DISCOURSE_BASE_URL)
+
+DocParser(
+    discourse_api, 
+    22, discourse_index_id, url_prefix
+)
+
 DiscourseDocs(
-    api=DiscourseAPI(base_url=DISCOURSE_BASE_URL),
+    api=discourse_api,
     index_topic_id=DOCS_INDEX_TOPIC,
-    category_id=DOCS_CATEGORY_ID,
     document_template=DOCS_TEMPLATE_PATH,  # Optional
     url_prefix=DOCS_URL_PREFIX,  # Optional
 ).init_app(app)
